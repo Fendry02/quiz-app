@@ -31,10 +31,10 @@
 
 		const shuffledMembers = _.shuffle(members)
 		const chunkedMembers = splitTeams(shuffledMembers, teamCount)
-		const formattedTeams = chunkedMembers.flatMap(formatTeams)
-		const reversedTeams = formattedTeams.reverse()
+		const reversedTeams = chunkedMembers.reverse()
+		const formattedTeams = reversedTeams.flatMap(formatTeams)
 
-		teams = reversedTeams
+		teams = formattedTeams
 		areTeams = true
 	}
 </script>
@@ -94,12 +94,17 @@
 				</label>
 				<div class="flex flex-wrap gap-8">
 					{#each teams as team}
-						<div class="flex-1 bg-base-100 rounded-lg p-4">
-							{#each team.members as member}
-								<span id="quizz-members">
-									{member} <br />
-								</span>
-							{/each}
+						<div class="flex flex-col flex-1">
+							<label class="label" for="team-{team.name}">
+								<span class="label-text">{team.name}</span>
+							</label>
+							<div id="team-{team.name}" class="flex-1 bg-base-100 rounded-lg p-4">
+								{#each team.members as member}
+									<span id="quizz-members">
+										{member} <br />
+									</span>
+								{/each}
+							</div>
 						</div>
 					{/each}
 				</div>
