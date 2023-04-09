@@ -1,27 +1,40 @@
 <script>
 	import _ from 'lodash'
 
-	let teamNumber = 2
-	let listTeams = ''
+	let teamCount = 2
+	let listTeamMembers = ''
 	let teams = [{ members: [], name: '' }]
 	let areTeams = false
 
+	function splitTeams(names, teamCount) {
+		let teams = []
+
+		while (teamCount > 0) {
+			teams.push(names.splice(0, Math.floor(names.length / teamCount)))
+			teamCount--
+		}
+
+		return teams
+	}
+
+	const formatTeams = (members, index) => {
+		return {
+			name: `Team ${index + 1}`,
+			members
+		}
+	}
+
 	const randomizeTeam = () => {
-		const members = listTeams.split(',')
-		if (members.length === 0 || members.length < teamNumber)
+		const members = listTeamMembers.split(',')
+		if (members.length === 0 || members.length < teamCount)
 			throw new Error('Invalid number of members')
 
 		const shuffledMembers = _.shuffle(members)
-		const chunkedMembers = _.chunk(shuffledMembers, teamNumber)
-		const newTeams = chunkedMembers.flatMap((members, index) => {
-			return {
-				name: `Team ${index + 1}`,
-				members
-			}
-		})
+		const chunkedMembers = splitTeams(shuffledMembers, teamCount)
+		const formattedTeams = chunkedMembers.flatMap(formatTeams)
+		const reversedTeams = formattedTeams.reverse()
 
-		// @ts-ignore
-		teams = newTeams
+		teams = reversedTeams
 		areTeams = true
 	}
 </script>
@@ -47,7 +60,7 @@
 				class="input w-full"
 				min="2"
 				max="4"
-				bind:value={teamNumber}
+				bind:value={teamCount}
 			/>
 		</div>
 
@@ -67,7 +80,7 @@
 				</span>
 			</label>
 			<textarea
-				bind:value={listTeams}
+				bind:value={listTeamMembers}
 				id="quizz-teams"
 				placeholder="separate each member with a comma"
 				class="textarea w-full min-h-[150px]"
@@ -81,7 +94,7 @@
 				</label>
 				<div class="flex flex-wrap gap-8">
 					{#each teams as team}
-						<div class="flex-1 bg-base-100 rounded-lg p-2">
+						<div class="flex-1 bg-base-100 rounded-lg p-4">
 							{#each team.members as member}
 								<span id="quizz-members">
 									{member} <br />
