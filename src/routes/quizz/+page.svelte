@@ -1,20 +1,22 @@
 <script>
 	import _ from 'lodash'
 
+	let quizzName = ''
 	let teamCount = 2
 	let listTeamMembers = ''
 	let teams = [{ members: [], name: '' }]
 	let areTeams = false
+	let isSubmitDisabled = true
 
-	function splitTeams(names, teamCount) {
-		let teams = []
+	const splitTeams = (names, teamCount) => {
+		let splitTeams = []
 
 		while (teamCount > 0) {
-			teams.push(names.splice(0, Math.floor(names.length / teamCount)))
+			splitTeams.push(names.splice(0, Math.floor(names.length / teamCount)))
 			teamCount--
 		}
 
-		return teams
+		return splitTeams
 	}
 
 	const formatTeams = (members, index) => {
@@ -36,17 +38,35 @@
 
 		teams = formattedTeams
 		areTeams = true
+		isSubmitDisabled = false
+	}
+
+	const onSubmit = async () => {
+		const response = await fetch('http://127.0.0.1:3000/quizz', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ name: quizzName, teamCount, teams })
+		})
+		const jsonData = await response.json()
 	}
 </script>
 
 <div class="flex flex-col gap-8 p-8 container mx-auto">
 	<h1 class="text-xl text-white text-center">Fill the information</h1>
-	<form class="flex flex-col gap-4 max-w-lg mx-auto w-full" method="post">
+	<form class="flex flex-col gap-4 max-w-lg mx-auto w-full">
 		<div class="form-control w-full">
 			<label class="label" for="quizz-name">
 				<span id="quizz-name" class="label-text">What is this quizz name ?</span>
 			</label>
-			<input type="text" placeholder="Quizz 2023" class="input w-full" required />
+			<input
+				type="text"
+				placeholder="Quizz 2023"
+				class="input w-full"
+				required
+				bind:value={quizzName}
+			/>
 		</div>
 
 		<div class="form-control w-full">
@@ -60,6 +80,7 @@
 				class="input w-full"
 				min="2"
 				max="4"
+				required
 				bind:value={teamCount}
 			/>
 		</div>
@@ -80,10 +101,11 @@
 				</span>
 			</label>
 			<textarea
-				bind:value={listTeamMembers}
 				id="quizz-teams"
 				placeholder="separate each member with a comma"
 				class="textarea w-full min-h-[150px]"
+				required
+				bind:value={listTeamMembers}
 			/>
 		</div>
 
@@ -111,6 +133,13 @@
 			</div>
 		{/if}
 
-		<button type="submit" class="btn btn-primary my-8"> Submit </button>
+		<div class="tooltip my-8" data-tip={isSubmitDisabled ? "Don't forget to randomize teams" : ''}>
+			<button
+				type="submit"
+				class="btn btn-primary w-full"
+				disabled={isSubmitDisabled}
+				on:click={onSubmit}>Submit</button
+			>
+		</div>
 	</form>
 </div>
