@@ -1,5 +1,7 @@
 <script>
-	import '../app.css'
+  import '../app.css'
 </script>
 
-<slot />
+<div class="flex flex-col p-8 container mx-auto">
+  <slot />
+</div>
