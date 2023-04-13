@@ -1,6 +1,8 @@
 <script>
   import _ from 'lodash'
 
+  import { goto } from '$app/navigation'
+
   let name = ''
   let teamCount = 2
   let listTeamMembers = ''
@@ -39,16 +41,34 @@
     areTeams = true
     isSubmitDisabled = false
   }
+
+  const onSubmit = async () => {
+    try {
+      await fetch('http://127.0.0.1:3000/quizz', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, teamCount, teams }),
+      })
+
+      goto('/quizz')
+    } catch (error) {
+      console.log(error)
+
+      throw error
+    }
+  }
 </script>
 
 <div class="max-w-xl mx-auto w-full">
-  <h1 class="text-xl text-white text-center">Fill the information</h1>
-  <form class="flex flex-col gap-4" method="POST" action="?/create">
+  <h1 class="text-xl dark:text-white text-center">Fill the information</h1>
+  <form class="flex flex-col gap-4">
     <div class="form-control">
       <label class="label" for="quizz-name">
         <span id="quizz-name" class="label-text">What is this quizz name ?</span>
       </label>
-      <input type="text" placeholder="Quizz 2023" class="input w-full" required bind:value={name} />
+      <input type="text" placeholder="Quizz 2023" class="input w-full bg-base-300" required bind:value="{name}" />
     </div>
 
     <div class="form-control">
@@ -59,11 +79,11 @@
         id="quizz-teams-number"
         type="number"
         placeholder="Enter the team number"
-        class="input w-full"
+        class="input w-full bg-base-300"
         min="2"
         max="4"
         required
-        bind:value={teamCount}
+        bind:value="{teamCount}"
       />
     </div>
 
@@ -72,29 +92,28 @@
         <span class="label-text">Give me all the members</span>
         <span
           class="label-text cursor-pointer underline"
-          on:click={randomizeTeam}
-          on:keydown|preventDefault={(event) => {
+          on:click="{randomizeTeam}"
+          on:keydown|preventDefault="{(event) => {
             if (event.key === 'Enter' || event.key === ' ') {
               randomizeTeam()
             }
-          }}
+          }}"
         >
-          click here to randomize
+          Make team
         </span>
       </label>
       <textarea
         id="quizz-teams"
         placeholder="separate each member with a comma"
-        class="textarea w-full min-h-[150px]"
+        class="textarea w-full min-h-[150px] bg-base-300"
         required
-        bind:value={listTeamMembers}
-      />
+        bind:value="{listTeamMembers}"></textarea>
     </div>
 
     {#if areTeams}
       <div class="form-control">
         <label class="label" for="quizz-members">
-          <span class="label-text">Here is the teams</span>
+          <span class="label-text">Here are the teams</span>
         </label>
         <div class="flex flex-wrap gap-8">
           {#each teams as team}
@@ -115,8 +134,8 @@
       </div>
     {/if}
 
-    <div class="tooltip my-8" data-tip={isSubmitDisabled ? "Don't forget to randomize teams" : ''}>
-      <button type="submit" class="btn btn-primary w-full" disabled={isSubmitDisabled}> Submit </button>
-    </div>
+    <button type="submit" class="btn btn-primary w-full bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}"
+      >Submit</button
+    >
   </form>
 </div>

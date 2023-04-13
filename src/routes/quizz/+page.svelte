@@ -1,8 +1,11 @@
 <script>
   import { onMount } from 'svelte'
   import { apiData } from '../../store/store'
+  import { goto } from '$app/navigation'
 
   let quizzes = []
+
+  apiData.subscribe((value) => (quizzes = [...value]))
 
   onMount(async () => {
     try {
@@ -19,6 +22,8 @@
       throw error
     }
   })
+
+  const onNewQuizzClicked = () => goto('/quizz/new')
 </script>
 
 <div class="overflow-x-auto">
@@ -26,34 +31,28 @@
     <!-- head -->
     <thead>
       <tr>
-        <th />
+        <th>Id</th>
         <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
       </tr>
     </thead>
     <tbody>
-      <!-- row 1 -->
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-      </tr>
-      <!-- row 2 -->
-      <tr>
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
-      <!-- row 3 -->
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
+      {#each quizzes as quizz}
+        <tr class="hover cursor-pointer">
+          <td>{quizz.id}</td>
+          <td>{quizz.name}</td>
+        </tr>
+      {/each}
     </tbody>
   </table>
+
+  <button class="btn btn-circle bg-primary absolute bottom-6 right-6" on:click="{onNewQuizzClicked}">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6 rotate-45"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg
+    >
+  </button>
 </div>
