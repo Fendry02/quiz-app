@@ -44,7 +44,7 @@
 
   const onSubmit = async () => {
     try {
-      await fetch('http://127.0.0.1:3000/quizz', {
+      await fetch('http://127.0.0.1:3000/quiz', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +52,7 @@
         body: JSON.stringify({ name, teamCount, teams }),
       })
 
-      goto('/quizz')
+      goto('/quiz')
     } catch (error) {
       console.log(error)
 
@@ -65,18 +65,18 @@
   <h1 class="text-xl dark:text-white text-center">Fill the information</h1>
   <form class="flex flex-col gap-4">
     <div class="form-control">
-      <label class="label" for="quizz-name">
-        <span id="quizz-name" class="label-text">What is this quizz name ?</span>
+      <label class="label" for="quiz-name">
+        <span id="quiz-name" class="label-text">What is this quiz name ?</span>
       </label>
-      <input type="text" placeholder="Quizz 2023" class="input w-full bg-base-300" required bind:value="{name}" />
+      <input type="text" placeholder="Quiz 2023" class="input w-full bg-base-300" required bind:value="{name}" />
     </div>
 
     <div class="form-control">
-      <label class="label" for="quizz-teams-number">
+      <label class="label" for="quiz-teams-number">
         <span class="label-text">Tell me how many teams they are</span>
       </label>
       <input
-        id="quizz-teams-number"
+        id="quiz-teams-number"
         type="number"
         placeholder="Enter the team number"
         class="input w-full bg-base-300"
@@ -88,7 +88,7 @@
     </div>
 
     <div class="form-control">
-      <label class="label" for="quizz-teams">
+      <label class="label" for="quiz-teams">
         <span class="label-text">Give me all the members</span>
         <span
           class="label-text cursor-pointer underline"
@@ -103,7 +103,7 @@
         </span>
       </label>
       <textarea
-        id="quizz-teams"
+        id="quiz-teams"
         placeholder="separate each member with a comma"
         class="textarea w-full min-h-[150px] bg-base-300"
         required
@@ -112,7 +112,7 @@
 
     {#if areTeams}
       <div class="form-control">
-        <label class="label" for="quizz-members">
+        <label class="label" for="quiz-members">
           <span class="label-text">Here are the teams</span>
         </label>
         <div class="flex flex-wrap gap-8">
@@ -123,7 +123,7 @@
               </label>
               <div id="team-{team.name}" class="flex-1 bg-base-100 rounded-lg p-4">
                 {#each team.members as member}
-                  <span id="quizz-members">
+                  <span id="quiz-members">
                     {member} <br />
                   </span>
                 {/each}
@@ -134,8 +134,8 @@
       </div>
     {/if}
 
-    <button type="submit" class="btn btn-primary w-full bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}"
-      >Submit</button
-    >
+    <button type="submit" class="btn btn-primary w-full bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}">
+      Submit
+    </button>
   </form>
 </div>
