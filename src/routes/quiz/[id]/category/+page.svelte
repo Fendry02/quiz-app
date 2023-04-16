@@ -3,10 +3,12 @@
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
 
-  import { storedCategories } from '../../../store/store'
+  import { storedCategories } from '../../../../store/store'
 
-  const id = $page.params
+  const { id } = $page.params
   let categories = []
+
+  storedCategories.subscribe((value) => (categories = [...value]))
 
   onMount(async () => {
     try {

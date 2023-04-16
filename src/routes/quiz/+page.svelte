@@ -25,7 +25,7 @@
 
   const onNewQuizClicked = () => goto('/quiz/new')
 
-  const onRowClicked = (quiz) => goto(`/quiz/${quiz.id}`)
+  const onRowClicked = (quiz) => goto(`/quiz/${quiz.id}/category`)
 </script>
 
 <div class="w-full">
