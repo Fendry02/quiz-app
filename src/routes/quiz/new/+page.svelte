@@ -134,8 +134,8 @@
       </div>
     {/if}
 
-    <button type="submit" class="btn btn-primary w-full bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}">
-      Submit
-    </button>
+    <button type="submit" class="btn btn-primary w-full bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}"
+      >Submit</button
+    >
   </form>
 </div>

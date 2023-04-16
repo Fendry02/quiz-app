@@ -1,35 +1,34 @@
 <script>
   import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
-  import { storedQuizzes } from '../../store/store'
+  import { page } from '$app/stores'
 
-  let quizzes = []
+  import { storedCategories } from '../../../store/store'
 
-  storedQuizzes.subscribe((value) => (quizzes = [...value]))
+  const id = $page.params
+  let categories = []
 
   onMount(async () => {
     try {
-      const response = await fetch('http://127.0.0.1:3000/quiz', {
+      const response = await fetch('http://127.0.0.1:3000/category', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       })
       const jsonData = await response.json()
-      storedQuizzes.set(jsonData)
+      storedCategories.set(jsonData)
     } catch (error) {
       console.error(error)
       throw error
     }
   })
 
-  const onNewQuizClicked = () => goto('/quiz/new')
-
-  const onRowClicked = (quiz) => goto(`/quiz/${quiz.id}`)
+  const onNewCategoryClicked = () => goto(`/quiz/${id}/category/new`)
 </script>
 
 <div class="w-full">
-  <h1 class="text-xl dark:text-white text-center">List quizzes</h1>
+  <h1 class="text-xl dark:text-white text-center">List categories</h1>
   <div class="overflow-x-auto py-8">
     <table class="table w-full">
       <thead>
@@ -39,16 +38,16 @@
         </tr>
       </thead>
       <tbody>
-        {#each quizzes as quiz}
-          <tr class="hover cursor-pointer" on:click="{() => onRowClicked(quiz)}">
-            <td>{quiz.id}</td>
-            <td>{quiz.name}</td>
+        {#each categories as category}
+          <tr class="hover cursor-pointer">
+            <td>{category.id}</td>
+            <td>{category.name}</td>
           </tr>
         {/each}
       </tbody>
     </table>
   </div>
-  <button class="btn btn-circle bg-primary absolute bottom-6 right-6" on:click="{onNewQuizClicked}">
+  <button class="btn btn-circle bg-primary absolute bottom-6 right-6" on:click="{onNewCategoryClicked}">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       class="h-6 w-6 rotate-45"
