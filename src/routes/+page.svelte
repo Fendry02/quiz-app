@@ -1,7 +1,7 @@
 <script>
   import { goto } from '$app/navigation'
 
-  const onGetStartedClick = () => goto('quiz')
+  const onGetStartedClick = () => goto('quizzes')
 </script>
 
 <main>

@@ -1,7 +1,9 @@
 <script>
   import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
-  import { storedQuizzes } from '../../store/store'
+
+  import { storedQuizzes } from '../../stores'
+  import AddButton from '../../components/AddButton.svelte'
 
   let quizzes = []
 
@@ -23,19 +25,19 @@
     }
   })
 
-  const onNewQuizClicked = () => goto('/quiz/new')
+  const onNewQuizClicked = () => goto('/quizzes/new')
 
-  const onRowClicked = (quiz) => goto(`/quiz/${quiz.id}/category`)
+  const onRowClicked = (quiz) => goto(`/quizzes/${quiz.id}/categories`)
 </script>
 
 <div class="w-full">
-  <h1 class="text-xl dark:text-white text-center">List quizzes</h1>
+  <h1 class="text-xl dark:text-white text-center">List of quizzes</h1>
   <div class="overflow-x-auto py-8">
     <table class="table w-full">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Name</th>
+          <th class="bg-primary text-white">Id</th>
+          <th class="bg-primary text-white">Name</th>
         </tr>
       </thead>
       <tbody>
@@ -48,14 +50,5 @@
       </tbody>
     </table>
   </div>
-  <button class="btn btn-circle bg-primary absolute bottom-6 right-6" on:click="{onNewQuizClicked}">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6 rotate-45"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-    </svg>
-  </button>
+  <AddButton on:buttonClicked="{onNewQuizClicked}" />
 </div>

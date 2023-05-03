@@ -3,7 +3,6 @@
   import { page } from '$app/stores'
 
   let name = ''
-  const { id } = $page.params
   $: isSubmitDisabled = name === ''
 
   const onSubmit = async () => {
@@ -13,10 +12,10 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, quiz_id: id }),
+        body: JSON.stringify({ name, quiz_id: $page.params.quiz_id }),
       })
 
-      goto(`/quiz/${id}/category`)
+      goto(`/quizzes/${$page.params.quiz_id}/categories`)
     } catch (error) {
       console.log(error)
 
