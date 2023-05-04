@@ -5,6 +5,7 @@
 
   import { storedCategories } from '../../../../stores'
   import AddButton from '../../../../components/AddButton.svelte'
+  import PreviousButton from '../../../../components/PreviousButton.svelte'
 
   let categories = []
 
@@ -51,5 +52,6 @@
       </tbody>
     </table>
   </div>
+  <PreviousButton />
   <AddButton on:buttonClicked="{onNewCategoryClicked}" />
 </div>

@@ -5,6 +5,7 @@
 
   import { storedQuestions } from '../../../../../../stores'
   import AddButton from '../../../../../../components/AddButton.svelte'
+  import PreviousButton from '../../../../../../components/PreviousButton.svelte'
 
   let questions = []
 
@@ -55,5 +56,6 @@
       </tbody>
     </table>
   </div>
+  <PreviousButton />
   <AddButton on:buttonClicked="{onNewQuestionClicked}" />
 </div>
