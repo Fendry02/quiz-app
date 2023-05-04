@@ -1,28 +1,38 @@
 <script>
+  // @ts-nocheck
   import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
 
-  $: question = { label: '', answer: '', information: '' }
+  import { storedQuestions } from '../../../../../../../stores'
+
+  let label = ''
+  let answer = ''
+  let information = ''
+
+  storedQuestions.subscribe((questions) => {
+    const question = questions.find((quest) => quest?.id === Number($page.params.question_id))
+    label = question?.label
+    answer = question?.answer
+    information = question?.information
+  })
 
   onMount(async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/question/${$page.params.question_id}`, {
+      const response = await fetch('http://127.0.0.1:3000/question', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       })
-      question = await response.json()
+      const jsonData = await response.json()
+      storedQuestions.set(jsonData)
     } catch (error) {
       console.error(error)
       throw error
     }
   })
 
-  let label = question?.label
-  let answer = question?.answer
-  let information = question?.information
   $: isSubmitDisabled = label === '' || answer === ''
 
   const onSubmit = async () => {
