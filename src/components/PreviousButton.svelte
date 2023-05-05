@@ -2,33 +2,41 @@
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
 
-  const substringUntilLastDigit = (str) => {
-    let lastIndex = -1
+  const formatPreviousPath = ({ currentPath }) => {
+    // Contains new
+    const lastNewIndex = currentPath.lastIndexOf('new')
 
-    for (let i = 0; i < str.length; i++) {
-      if (!isNaN(parseInt(str[i]))) {
-        lastIndex = i
+    if (lastNewIndex !== -1) {
+      return currentPath.substring(0, lastNewIndex)
+    }
+
+    // Contains a digit
+    const containsDigit = /\d/.test(currentPath)
+
+    if (containsDigit) {
+      let lastIndex = -1
+
+      for (let i = 0; i < currentPath.length; i++) {
+        if (!isNaN(parseInt(currentPath[i]))) {
+          lastIndex = i
+        }
       }
+
+      return currentPath.substring(0, lastIndex)
     }
 
-    if (lastIndex === -1) {
-      return ''
-    }
-
-    return str.substring(0, lastIndex + 1)
+    // Error
+    throw new Error(`Invalid previous path: ${currentPath}`)
   }
 
-  const pathUntilLastDigit = substringUntilLastDigit($page.url.pathname)
-  const lastSplitIndex = pathUntilLastDigit.lastIndexOf('/')
-
-  const path = pathUntilLastDigit.substring(0, lastSplitIndex)
+  const path = formatPreviousPath({ currentPath: $page.url.pathname })
 
   const onButtonClicked = () => {
     goto(path)
   }
 </script>
 
-<button class="btn btn-circle bg-primary absolute bottom-6 left-6" on:click="{onButtonClicked}">
+<button class="btn btn-circle bg-primary absolute bottom-6 left-6" type="button" on:click="{onButtonClicked}">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

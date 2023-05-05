@@ -1,6 +1,7 @@
 <script>
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
+  import PreviousButton from '../../../../../components/PreviousButton.svelte'
 
   let name = ''
   $: isSubmitDisabled = name === ''
@@ -34,6 +35,7 @@
       <input type="text" placeholder="History" class="input w-full bg-base-300" required bind:value="{name}" />
     </div>
 
+    <PreviousButton />
     <button type="submit" class="btn btn-primary w-full bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}">
       Submit
     </button>
