@@ -24,19 +24,16 @@
 
       return currentPath.substring(0, lastIndex)
     }
-
-    // Error
-    throw new Error(`Invalid previous path: ${currentPath}`)
   }
 
-  const path = formatPreviousPath({ currentPath: $page.url.pathname })
+  $: path = formatPreviousPath({ currentPath: $page.url.pathname })
 
   const onButtonClicked = () => {
     goto(path)
   }
 </script>
 
-<button class="btn btn-circle bg-primary absolute bottom-6 left-6" type="button" on:click="{onButtonClicked}">
+<button class="btn btn-circle bg-primary" type="button" on:click="{onButtonClicked}">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"

@@ -5,7 +5,6 @@
 
   import { storedQuestions } from '../../../../../../stores'
   import AddButton from '../../../../../../components/AddButton.svelte'
-  import PreviousButton from '../../../../../../components/PreviousButton.svelte'
 
   let questions = []
 
@@ -34,8 +33,8 @@
     goto(`/quizzes/${$page.params.quiz_id}/categories/${$page.params.category_id}/questions/${question.id}`)
 </script>
 
-<div class="w-full">
-  <h1 class="text-xl dark:text-white text-center">List of questions</h1>
+<section class="flex flex-col">
+  <h1 class="text-xl">Questions</h1>
   <div class="overflow-x-auto py-8">
     <table class="table w-full">
       <thead>
@@ -56,6 +55,5 @@
       </tbody>
     </table>
   </div>
-  <PreviousButton />
-  <AddButton on:buttonClicked="{onNewQuestionClicked}" />
-</div>
+  <AddButton on:buttonClicked="{onNewQuestionClicked}" label="Add a new question" />
+</section>

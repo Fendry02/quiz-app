@@ -30,14 +30,14 @@
   const onRowClicked = (quiz) => goto(`/quizzes/${quiz.id}/categories`)
 </script>
 
-<div class="w-full">
-  <h1 class="text-xl dark:text-white text-center">List of quizzes</h1>
+<section class="flex flex-col">
+  <h1 class="text-xl">Quizzes</h1>
   <div class="overflow-x-auto py-8">
     <table class="table w-full">
       <thead>
         <tr>
-          <th class="bg-primary text-white">Id</th>
-          <th class="bg-primary text-white">Name</th>
+          <th class="bg-primary">Id</th>
+          <th class="bg-primary">Name</th>
         </tr>
       </thead>
       <tbody>
@@ -50,5 +50,5 @@
       </tbody>
     </table>
   </div>
-  <AddButton on:buttonClicked="{onNewQuizClicked}" />
-</div>
+  <AddButton on:buttonClicked="{onNewQuizClicked}" label="Add a new quiz" />
+</section>

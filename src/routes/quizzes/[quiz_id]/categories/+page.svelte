@@ -5,7 +5,6 @@
 
   import { storedCategories } from '../../../../stores'
   import AddButton from '../../../../components/AddButton.svelte'
-  import PreviousButton from '../../../../components/PreviousButton.svelte'
 
   let categories = []
 
@@ -32,8 +31,8 @@
   const onRowClicked = (category) => goto(`/quizzes/${$page.params.quiz_id}/categories/${category.id}/questions`)
 </script>
 
-<div class="w-full">
-  <h1 class="text-xl dark:text-white text-center">List of categories</h1>
+<section class="flex flex-col">
+  <h1 class="text-xl">Categories</h1>
   <div class="overflow-x-auto py-8">
     <table class="table w-full">
       <thead>
@@ -52,6 +51,5 @@
       </tbody>
     </table>
   </div>
-  <PreviousButton />
-  <AddButton on:buttonClicked="{onNewCategoryClicked}" />
-</div>
+  <AddButton on:buttonClicked="{onNewCategoryClicked}" label="Add a new category" />
+</section>

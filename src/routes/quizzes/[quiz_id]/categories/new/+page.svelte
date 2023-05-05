@@ -1,7 +1,6 @@
 <script>
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
-  import PreviousButton from '../../../../../components/PreviousButton.svelte'
 
   let name = ''
   $: isSubmitDisabled = name === ''
@@ -25,8 +24,8 @@
   }
 </script>
 
-<div class="max-w-xl mx-auto w-full">
-  <h1 class="text-xl dark:text-white text-center">Fill the information</h1>
+<section class="max-w-xl mx-auto w-full">
+  <h1 class="text-xl">Fill the information</h1>
   <form class="flex flex-col gap-4">
     <div class="form-control">
       <label class="label" for="quiz-name">
@@ -35,9 +34,8 @@
       <input type="text" placeholder="History" class="input w-full bg-base-300" required bind:value="{name}" />
     </div>
 
-    <PreviousButton />
     <button type="submit" class="btn btn-primary w-full bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}">
       Submit
     </button>
   </form>
-</div>
+</section>
