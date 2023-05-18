@@ -3,8 +3,9 @@
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
 
-  import { storedCategories } from '../../../../stores'
-  import AddButton from '../../../../components/AddButton.svelte'
+  import { storedCategories } from 'src/stores'
+  import AddButton from 'src/components/AddButton.svelte'
+  import NavBar from 'src/components/NavBar.svelte'
 
   let categories = []
 
@@ -32,8 +33,14 @@
 </script>
 
 <section class="flex flex-col">
-  <h1 class="text-xl">Categories</h1>
-  <div class="overflow-x-auto py-8">
+  <NavBar
+    buttonLabel="Add a new category"
+    label="Categories"
+    displayPreviousButton="{true}"
+    displayActionButton="{true}"
+    on:buttonClicked="{onNewCategoryClicked}"
+  />
+  <div class="overflow-x-auto">
     <table class="table w-full">
       <thead>
         <tr>
@@ -51,5 +58,4 @@
       </tbody>
     </table>
   </div>
-  <AddButton on:buttonClicked="{onNewCategoryClicked}" label="Add a new category" />
 </section>

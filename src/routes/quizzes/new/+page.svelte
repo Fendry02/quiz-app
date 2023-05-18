@@ -2,6 +2,7 @@
   import _ from 'lodash'
 
   import { goto } from '$app/navigation'
+  import NavBar from 'src/components/NavBar.svelte'
 
   let name = ''
   let teamCount = 2
@@ -62,6 +63,7 @@
 </script>
 
 <section class="max-w-xl mx-auto w-full">
+  <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Add a new quiz" />
   <h1 class="text-xl">Fill the information</h1>
   <form class="flex flex-col gap-4">
     <div class="form-control">

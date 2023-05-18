@@ -1,6 +1,7 @@
 <script>
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
+  import NavBar from 'src/components/NavBar.svelte'
 
   let label = ''
   let answer = ''
@@ -27,6 +28,7 @@
 </script>
 
 <section class="max-w-xl mx-auto w-full">
+  <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Add a new question" />
   <h1 class="text-xl">Fill the information</h1>
   <form class="flex flex-col gap-4">
     <div class="form-control">

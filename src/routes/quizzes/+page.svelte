@@ -2,8 +2,8 @@
   import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
 
-  import { storedQuizzes } from '../../stores'
-  import AddButton from '../../components/AddButton.svelte'
+  import { storedQuizzes } from 'src/stores'
+  import NavBar from 'src/components/NavBar.svelte'
 
   let quizzes = []
 
@@ -31,13 +31,20 @@
 </script>
 
 <section class="flex flex-col">
-  <h1 class="text-xl">Quizzes</h1>
-  <div class="overflow-x-auto py-8">
+  <NavBar
+    buttonLabel="Add a new quiz"
+    label="Quizzes"
+    displayPreviousButton="{false}"
+    displayActionButton="{true}"
+    on:buttonClicked="{onNewQuizClicked}"
+  />
+  <div class="overflow-x-auto">
     <table class="table w-full">
       <thead>
         <tr>
-          <th class="bg-primary">Id</th>
-          <th class="bg-primary">Name</th>
+          <th class="bg-primary text-white">Id</th>
+          <th class="bg-primary text-white">Name</th>
+          <th class="bg-primary text-white"></th>
         </tr>
       </thead>
       <tbody>
@@ -45,10 +52,10 @@
           <tr class="hover cursor-pointer" on:click="{() => onRowClicked(quiz)}">
             <td>{quiz.id}</td>
             <td>{quiz.name}</td>
+            <td>TEST</td>
           </tr>
         {/each}
       </tbody>
     </table>
   </div>
-  <AddButton on:buttonClicked="{onNewQuizClicked}" label="Add a new quiz" />
 </section>

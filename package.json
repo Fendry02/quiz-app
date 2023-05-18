@@ -36,6 +36,7 @@
   "type": "module",
   "dependencies": {
     "lodash": "^4.17.21",
-    "svelte-navigator": "^3.2.2"
+    "svelte-navigator": "^3.2.2",
+    "vite-tsconfig-paths": "^4.2.0"
   }
 }

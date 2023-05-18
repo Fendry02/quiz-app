@@ -3,8 +3,9 @@
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
 
-  import { storedQuestions } from '../../../../../../stores'
-  import AddButton from '../../../../../../components/AddButton.svelte'
+  import { storedQuestions } from 'src/stores'
+  import AddButton from 'src/components/AddButton.svelte'
+  import NavBar from 'src/components/NavBar.svelte'
 
   let questions = []
 
@@ -34,8 +35,14 @@
 </script>
 
 <section class="flex flex-col">
-  <h1 class="text-xl">Questions</h1>
-  <div class="overflow-x-auto py-8">
+  <NavBar
+    buttonLabel="Add a new question"
+    label="Questions"
+    displayPreviousButton="{true}"
+    displayActionButton="{true}"
+    on:buttonClicked="{onNewQuestionClicked}"
+  />
+  <div class="overflow-x-auto">
     <table class="table w-full">
       <thead>
         <tr>
@@ -55,5 +62,4 @@
       </tbody>
     </table>
   </div>
-  <AddButton on:buttonClicked="{onNewQuestionClicked}" label="Add a new question" />
 </section>
