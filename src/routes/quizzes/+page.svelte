@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
+  import { PlayIcon } from 'svelte-feather-icons'
 
   import { storedQuizzes } from 'src/stores'
   import NavBar from 'src/components/NavBar.svelte'
@@ -42,9 +43,9 @@
     <table class="table w-full">
       <thead>
         <tr>
-          <th class="bg-primary text-white">Id</th>
+          <th class="bg-primary text-white">#</th>
           <th class="bg-primary text-white">Name</th>
-          <th class="bg-primary text-white"></th>
+          <th class="bg-primary text-white">Launch</th>
         </tr>
       </thead>
       <tbody>
@@ -52,7 +53,11 @@
           <tr class="hover cursor-pointer" on:click="{() => onRowClicked(quiz)}">
             <td>{quiz.id}</td>
             <td>{quiz.name}</td>
-            <td>TEST</td>
+            <td>
+              <button class="btn bg-primary btn-square h-10 w-10 min-h-fit border-transparent">
+                <PlayIcon />
+              </button>
+            </td>
           </tr>
         {/each}
       </tbody>

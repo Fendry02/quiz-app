@@ -44,7 +44,7 @@
     <table class="table w-full">
       <thead>
         <tr>
-          <th class="bg-primary text-white">Id</th>
+          <th class="bg-primary text-white">#</th>
           <th class="bg-primary text-white">Name</th>
         </tr>
       </thead>

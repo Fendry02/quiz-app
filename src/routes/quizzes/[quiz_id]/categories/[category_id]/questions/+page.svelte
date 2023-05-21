@@ -46,7 +46,7 @@
     <table class="table w-full">
       <thead>
         <tr>
-          <th class="bg-primary text-white">Id</th>
+          <th class="bg-primary text-white">#</th>
           <th class="bg-primary text-white">Label</th>
           <th class="bg-primary text-white">Answer</th>
         </tr>
