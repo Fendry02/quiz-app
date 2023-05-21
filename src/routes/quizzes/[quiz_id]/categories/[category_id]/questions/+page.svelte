@@ -4,7 +4,6 @@
   import { page } from '$app/stores'
 
   import { storedQuestions } from 'src/stores'
-  import AddButton from 'src/components/AddButton.svelte'
   import NavBar from 'src/components/NavBar.svelte'
 
   let questions = []

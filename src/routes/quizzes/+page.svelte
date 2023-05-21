@@ -29,6 +29,10 @@
   const onNewQuizClicked = () => goto('/quizzes/new')
 
   const onRowClicked = (quiz) => goto(`/quizzes/${quiz.id}/categories`)
+
+  const onPlayClick = (quiz) => {
+    goto(`/quizzes/${quiz.id}/play`)
+  }
 </script>
 
 <section class="flex flex-col">
@@ -45,7 +49,7 @@
         <tr>
           <th class="bg-primary text-white">#</th>
           <th class="bg-primary text-white">Name</th>
-          <th class="bg-primary text-white">Launch</th>
+          <th class="bg-primary text-white">Play</th>
         </tr>
       </thead>
       <tbody>
@@ -54,7 +58,10 @@
             <td>{quiz.id}</td>
             <td>{quiz.name}</td>
             <td>
-              <button class="btn bg-primary btn-square h-10 w-10 min-h-fit border-transparent">
+              <button
+                class="btn bg-primary btn-square h-10 w-10 min-h-fit border-transparent"
+                on:click|stopPropagation="{() => onPlayClick(quiz)}"
+              >
                 <PlayIcon />
               </button>
             </td>

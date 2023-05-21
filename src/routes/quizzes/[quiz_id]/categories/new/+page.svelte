@@ -27,7 +27,7 @@
 
 <section class="max-w-xl mx-auto w-full">
   <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Add a new category" />
-  <h1 class="text-xl">Fill the information</h1>
+  <h1 class="text-xl dark:text-white">Fill the information</h1>
   <form class="flex flex-col gap-4">
     <div class="form-control">
       <label class="label" for="quiz-name">
