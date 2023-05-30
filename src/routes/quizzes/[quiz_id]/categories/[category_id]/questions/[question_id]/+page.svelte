@@ -4,30 +4,24 @@
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
 
-  import { storedQuestions } from 'src/stores'
   import NavBar from 'src/components/NavBar.svelte'
 
-  let label = ''
-  let answer = ''
-  let information = ''
-
-  storedQuestions.subscribe((questions) => {
-    const question = questions.find((quest) => quest?.id === Number($page.params.question_id))
-    label = question?.label
-    answer = question?.answer
-    information = question?.information
-  })
+  $: label = ''
+  $: answer = ''
+  $: information = ''
 
   onMount(async () => {
     try {
-      const response = await fetch('http://127.0.0.1:3000/question', {
+      const response = await fetch(`http://127.0.0.1:3000/question/${$page.params.question_id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       })
       const jsonData = await response.json()
-      storedQuestions.set(jsonData)
+      label = jsonData.label
+      answer = jsonData.answer
+      information = jsonData.information
     } catch (error) {
       console.error(error)
       throw error

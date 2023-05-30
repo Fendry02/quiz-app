@@ -12,7 +12,7 @@
 
   onMount(async () => {
     try {
-      const response = await fetch('http://127.0.0.1:3000/quiz', {
+      const response = await fetch('http://127.0.0.1:3000/quizzes', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -30,9 +30,8 @@
 
   const onRowClicked = (quiz) => goto(`/quizzes/${quiz.id}/categories`)
 
-  const onPlayClick = (quiz) => {
-    goto(`/quizzes/${quiz.id}/play`)
-  }
+  const onPlayClick = (quiz) => goto(`/quizzes/${quiz.id}/teams`)
+  
 </script>
 
 <section class="flex flex-col">

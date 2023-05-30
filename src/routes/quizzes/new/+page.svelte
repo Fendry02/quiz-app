@@ -1,5 +1,6 @@
 <script>
   import { goto } from '$app/navigation'
+  
   import NavBar from 'src/components/NavBar.svelte'
 
   let name = ''

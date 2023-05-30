@@ -12,7 +12,7 @@
 
   onMount(async () => {
     try {
-      const response = await fetch('http://127.0.0.1:3000/category', {
+      const response = await fetch(`http://127.0.0.1:3000/categories/${$page.params.quiz_id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +51,7 @@
         {#each categories as category}
           <tr class="hover cursor-pointer" on:click="{() => onRowClicked(category)}">
             <td>{category.id}</td>
-            <td>{category.name}</td>
+            <td>{category.label}</td>
           </tr>
         {/each}
       </tbody>
