@@ -30,8 +30,7 @@
 
   const onRowClicked = (quiz) => goto(`/quizzes/${quiz.id}/categories`)
 
-  const onPlayClick = (quiz) => goto(`/quizzes/${quiz.id}/teams`)
-  
+  const onPlayClicked = (quiz) => goto(`/quizzes/${quiz.id}/teams`)
 </script>
 
 <section class="flex flex-col">
@@ -43,12 +42,12 @@
     on:buttonClicked="{onNewQuizClicked}"
   />
   <div class="overflow-x-auto">
-    <table class="table w-full">
+    <table class="table">
       <thead>
         <tr>
-          <th class="bg-primary text-white">#</th>
+          <th class="bg-primary text-white rounded-tl-lg">#</th>
           <th class="bg-primary text-white">Name</th>
-          <th class="bg-primary text-white">Play</th>
+          <th class="bg-primary text-white rounded-tr-lg">Play</th>
         </tr>
       </thead>
       <tbody>
@@ -59,9 +58,9 @@
             <td>
               <button
                 class="btn bg-primary btn-square h-10 w-10 min-h-fit border-transparent"
-                on:click|stopPropagation="{() => onPlayClick(quiz)}"
+                on:click|stopPropagation="{() => onPlayClicked(quiz)}"
               >
-                <PlayIcon />
+                <PlayIcon class="text-white" />
               </button>
             </td>
           </tr>

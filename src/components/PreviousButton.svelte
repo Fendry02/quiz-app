@@ -36,5 +36,5 @@
 </script>
 
 <button class="btn btn-square bg-primary border-transparent" type="button" on:click="{onButtonClicked}">
-  <ArrowLeftIcon class="dark:text-white" />
+  <ArrowLeftIcon class="text-white" />
 </button>

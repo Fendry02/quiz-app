@@ -1,6 +1,6 @@
 <script>
   import { goto } from '$app/navigation'
-  
+
   import NavBar from 'src/components/NavBar.svelte'
 
   let name = ''
@@ -10,9 +10,7 @@
     try {
       await fetch('http://127.0.0.1:3000/quiz', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name }),
       })
 

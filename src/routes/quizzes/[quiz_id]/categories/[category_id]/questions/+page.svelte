@@ -42,12 +42,12 @@
     on:buttonClicked="{onNewQuestionClicked}"
   />
   <div class="overflow-x-auto">
-    <table class="table w-full">
+    <table class="table">
       <thead>
         <tr>
-          <th class="bg-primary text-white">#</th>
+          <th class="bg-primary text-white rounded-tl-lg">#</th>
           <th class="bg-primary text-white">Label</th>
-          <th class="bg-primary text-white">Answer</th>
+          <th class="bg-primary text-white rounded-tr-lg">Answer</th>
         </tr>
       </thead>
       <tbody>

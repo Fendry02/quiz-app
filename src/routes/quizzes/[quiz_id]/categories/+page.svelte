@@ -40,18 +40,18 @@
     on:buttonClicked="{onNewCategoryClicked}"
   />
   <div class="overflow-x-auto">
-    <table class="table w-full">
+    <table class="table">
       <thead>
         <tr>
-          <th class="bg-primary text-white">#</th>
-          <th class="bg-primary text-white">Name</th>
+          <th class="bg-primary text-white rounded-tl-lg">#</th>
+          <th class="bg-primary text-white rounded-tr-lg">Name</th>
         </tr>
       </thead>
       <tbody>
         {#each categories as category}
           <tr class="hover cursor-pointer" on:click="{() => onRowClicked(category)}">
             <td>{category.id}</td>
-            <td>{category.label}</td>
+            <td>{category.name}</td>
           </tr>
         {/each}
       </tbody>

@@ -12,6 +12,6 @@
 </script>
 
 <button class="btn bg-primary gap-2 max-w-xs self-center border-transparent" on:click="{onButtonClicked}">
-  <PlusIcon class="dark:text-white" />
+  <PlusIcon class="text-white" />
   <span class="hidden sm:block text-white">{label}</span>
 </button>

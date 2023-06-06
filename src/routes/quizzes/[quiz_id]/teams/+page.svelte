@@ -132,14 +132,8 @@
       </div>
     {/if}
 
-    <button
-      type="submit"
-      class="btn btn-primary w-full bg-primary"
-      disabled="{isSubmitDisabled}"
-      on:click="{onSubmit}"
-    >
+    <button type="submit" class="btn btn-primary w-full bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}">
       Launch the quiz !
     </button>
   </form>
 </section>
-
