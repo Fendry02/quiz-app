@@ -49,7 +49,7 @@
   }
 </script>
 
-<section class="max-w-xl mx-auto w-full">
+<section class="mx-auto w-full">
   <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Edit a question" />
   <h1 class="text-xl dark:text-white">Fill the information</h1>
   <form class="flex flex-col gap-4">

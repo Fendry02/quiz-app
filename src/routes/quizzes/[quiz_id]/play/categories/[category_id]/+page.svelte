@@ -27,7 +27,7 @@
   })
 </script>
 
-<section class="max-w-xl mx-auto w-full">
+<section class="mx-auto w-full">
   <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Questions" />
   <div>
     {#each questions as question}

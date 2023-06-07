@@ -28,7 +28,7 @@
   }
 </script>
 
-<section class="max-w-xl mx-auto w-full">
+<section class="mx-auto w-full">
   <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Add a new question" />
   <h1 class="text-xl dark:text-white">Fill the information</h1>
   <form class="flex flex-col gap-4">
@@ -39,14 +39,14 @@
       <input
         type="text"
         placeholder="What is the most popular sport in the world ?"
-        class="input w-full bg-base-300"
+        class="input bg-base-300"
         required
         bind:value="{label}"
       />
       <label class="label" for="question-label">
         <span id="question-label" class="label-text">What is the answer ?</span>
       </label>
-      <input type="text" placeholder="Football" class="input w-full bg-base-300" required bind:value="{answer}" />
+      <input type="text" placeholder="Football" class="input bg-base-300" required bind:value="{answer}" />
 
       <label class="label" for="question-information">
         <span class="label-text">Information</span>
@@ -54,11 +54,11 @@
       <textarea
         id="question-information"
         placeholder="Add more information to the question"
-        class="textarea w-full min-h-[150px] bg-base-300"
+        class="textarea min-h-[150px] bg-base-300"
         bind:value="{information}"></textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary w-full bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}">
+    <button type="submit" class="btn btn-primary bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}">
       Submit
     </button>
   </form>

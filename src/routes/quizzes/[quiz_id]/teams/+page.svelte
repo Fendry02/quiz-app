@@ -65,7 +65,7 @@
   }
 </script>
 
-<section class="max-w-xl mx-auto w-full">
+<section class="mx-auto w-full">
   <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Play" />
   <h1 class="text-xl dark:text-white">Fill the information</h1>
   <form class="flex flex-col gap-4">
@@ -77,7 +77,7 @@
         id="quiz-teams-number"
         type="number"
         placeholder="Enter the team number"
-        class="input w-full bg-base-300"
+        class="input bg-base-300"
         min="2"
         max="4"
         required
@@ -103,7 +103,7 @@
       <textarea
         id="quiz-teams"
         placeholder="separate each member with a comma"
-        class="textarea w-full min-h-[150px] bg-base-300"
+        class="textarea min-h-[150px] bg-base-300"
         required
         bind:value="{listTeamMembers}"></textarea>
     </div>
@@ -132,7 +132,7 @@
       </div>
     {/if}
 
-    <button type="submit" class="btn btn-primary w-full bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}">
+    <button type="submit" class="btn btn-primary bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}">
       Launch the quiz !
     </button>
   </form>
