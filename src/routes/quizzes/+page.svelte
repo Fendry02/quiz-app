@@ -14,9 +14,7 @@
     try {
       const response = await fetch('http://127.0.0.1:3000/quizzes', {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       })
       const jsonData = await response.json()
       storedQuizzes.set(jsonData)

@@ -42,7 +42,7 @@
 
       goto(`/quizzes/${$page.params.quiz_id}/categories/${$page.params.category_id}/questions`)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       throw error
     }

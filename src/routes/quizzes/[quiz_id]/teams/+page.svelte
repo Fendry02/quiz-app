@@ -5,10 +5,11 @@
   import { goto } from '$app/navigation'
 
   import NavBar from 'src/components/NavBar.svelte'
+  import { storedTeams } from 'src/stores'
 
   let teamCount = 2
   let listTeamMembers = ''
-  let teams = [{ members: [], name: '' }]
+  let teams = [{ members: [], label: '' }]
   let areTeams = false
   let isSubmitDisabled = true
 
@@ -27,8 +28,9 @@
 
   const formatTeams = (members, index) => {
     return {
-      name: `Team ${index + 1}`,
+      label: `Team ${index + 1}`,
       members,
+      quiz_id: quizId
     }
   }
 
@@ -48,17 +50,17 @@
 
   const onSubmit = async () => {
     try {
-      await fetch('http://127.0.0.1:3000/quiz', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ teamCount, teams, quizId }),
+      const response = await fetch('http://127.0.0.1:3000/teams', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ teams }),
       })
 
+      const jsonData = await response.json()
+      storedTeams.set(jsonData)
       goto(`/quizzes/${quizId}/play/categories`)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       throw error
     }
@@ -116,10 +118,10 @@
         <div class="flex flex-wrap gap-8">
           {#each teams as team}
             <div class="flex flex-col flex-1">
-              <label class="label" for="team-{team.name}">
-                <span class="label-text">{team.name}</span>
+              <label class="label" for="team-{team.label}">
+                <span class="label-text">{team.label}</span>
               </label>
-              <div id="team-{team.name}" class="flex-1 bg-base-100 rounded-lg p-4">
+              <div id="team-{team.label}" class="flex-1 bg-base-100 rounded-lg p-4">
                 {#each team.members as member}
                   <span id="quiz-members">
                     {member} <br />

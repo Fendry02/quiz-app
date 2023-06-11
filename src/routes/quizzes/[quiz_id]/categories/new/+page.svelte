@@ -16,7 +16,7 @@
 
       goto(`/quizzes/${$page.params.quiz_id}/categories`)
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       throw error
     }
