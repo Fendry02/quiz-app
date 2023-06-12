@@ -5,7 +5,7 @@
   import { goto } from '$app/navigation'
 
   import NavBar from 'src/components/NavBar.svelte'
-  import { storedQuestions, storedResults, storedTeams } from 'src/stores'
+  import { storedQuestions, storedTeams } from 'src/stores'
 
   let questions = []
   let teams = []
@@ -40,31 +40,28 @@
   })
 
   const setResult = ({ input, question, team }) => {
-    const resultIndex = results.findIndex(result => result.questionId === question.id && result.teamId === team.id)
+    const resultIndex = results.findIndex((result) => result.questionId === question.id && result.teamId === team.id)
     const pointInNumber = Number(input.data)
     const newResult = {
-        question_id: question.id,
-        point: pointInNumber,
-        team_id: team.id,
-      }
-
-    if (resultIndex === -1) {
-      return results = [ ...results, {...newResult}]
+      question_id: question.id,
+      point: pointInNumber,
+      team_id: team.id,
     }
 
-    return results[resultIndex] = {...newResult}
+    if (resultIndex === -1) {
+      return (results = [...results, { ...newResult }])
+    }
 
+    return (results[resultIndex] = { ...newResult })
   }
 
   const onValidTeamClicked = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:3000/results', {
+      await fetch('http://127.0.0.1:3000/results', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ results }),
       })
-      const jsonData = await response.json()
-      storedResults.set(jsonData)
 
       goto(`/quizzes/${quizId}/play/categories`)
     } catch (error) {
@@ -91,8 +88,15 @@
           </div>
           <div class="flex gap-8 pb-4">
             {#each teams as team, index}
-              <span class="self-center {getDynamicTextColor(index)}">Team { index + 1 }</span>
-              <input type="number" placeholder="1" class="input input-bordered max-w-xs {getDynamicInputColor(index)}" on:input="{(input) => setResult({ input, question, team })}" />
+              <span class="self-center {getDynamicTextColor(index)}">Team {index + 1}</span>
+              <input
+                type="number"
+                min="0"
+                max="10"
+                placeholder="1"
+                class="input input-bordered max-w-xs {getDynamicInputColor(index)}"
+                on:input="{(input) => setResult({ input, question, team })}"
+              />
             {/each}
           </div>
         </div>

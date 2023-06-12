@@ -13,18 +13,14 @@
     }
 
     // Contains a digit
-    const containsDigit = /\d/.test(currentPath)
+    const digitRegex = /\/(\d+)$/ // Matches the last number preceded by a '/'
+    if (digitRegex.test(currentPath)) {
+      return currentPath.replace(digitRegex, '') // Removes the last number
+    }
 
-    if (containsDigit) {
-      let lastIndex = -1
-
-      for (let i = 0; i < currentPath.length; i++) {
-        if (!isNaN(parseInt(currentPath[i]))) {
-          lastIndex = i
-        }
-      }
-
-      return currentPath.substring(0, lastIndex)
+    const stringRegex = /\/(\w+)$/
+    if (stringRegex.test(currentPath)) {
+      return currentPath.replace(stringRegex, '') // Removes the last word
     }
   }
 

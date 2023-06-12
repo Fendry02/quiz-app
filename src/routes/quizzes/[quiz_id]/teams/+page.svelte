@@ -30,7 +30,7 @@
     return {
       label: `Team ${index + 1}`,
       members,
-      quiz_id: quizId
+      quiz_id: quizId,
     }
   }
 
