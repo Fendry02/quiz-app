@@ -7,10 +7,9 @@
   import NavBar from 'src/components/NavBar.svelte'
 
   let categories = []
-
   storedCategories.subscribe((value) => (categories = [...value]))
 
-  onMount(async () => {
+  const fetchCategories = async () => {
     try {
       const response = await fetch(`http://127.0.0.1:3000/categories/${$page.params.quiz_id}`, {
         method: 'GET',
@@ -22,6 +21,10 @@
       console.error(error)
       throw error
     }
+  }
+
+  onMount(async () => {
+    await fetchCategories()
   })
 
   const onNewCategoryClicked = () => goto(`/quizzes/${$page.params.quiz_id}/categories/new`)
@@ -35,6 +38,7 @@
     label="Categories"
     displayPreviousButton="{true}"
     displayActionButton="{true}"
+    previousPath="/quizzes"
     on:buttonClicked="{onNewCategoryClicked}"
   />
   <div class="overflow-x-auto">

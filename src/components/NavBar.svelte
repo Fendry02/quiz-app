@@ -4,6 +4,7 @@
   import AddButton from './AddButton.svelte'
   import PreviousButton from './PreviousButton.svelte'
 
+  export let previousPath = ''
   export let label
   export let buttonLabel = ''
   export let displayPreviousButton = false
@@ -18,7 +19,7 @@
 
 <nav class="flex items-center gap-8 pb-8">
   {#if displayPreviousButton}
-    <PreviousButton />
+    <PreviousButton previousPath="{previousPath}" />
   {/if}
   <h1 class="text-2xl dark:text-white">{label}</h1>
   {#if displayActionButton}

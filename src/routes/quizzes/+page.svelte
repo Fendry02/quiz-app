@@ -7,10 +7,9 @@
   import NavBar from 'src/components/NavBar.svelte'
 
   let quizzes = []
-
   storedQuizzes.subscribe((value) => (quizzes = [...value]))
 
-  onMount(async () => {
+  const fetchQuizzes = async () => {
     try {
       const response = await fetch('http://127.0.0.1:3000/quizzes', {
         method: 'GET',
@@ -22,6 +21,10 @@
       console.error(error)
       throw error
     }
+  }
+
+  onMount(async () => {
+    await fetchQuizzes()
   })
 
   const onNewQuizClicked = () => goto('/quizzes/new')

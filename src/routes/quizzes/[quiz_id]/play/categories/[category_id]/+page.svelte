@@ -21,11 +21,7 @@
   const textColors = ['text-primary', 'text-secondary', 'text-accent', 'text-info']
   const getDynamicTextColor = (index) => textColors[index]
 
-  onMount(async () => {
-    if (teams.length === 0) {
-      goto(`/quizzes`)
-    }
-
+  const fetchQuestions = async () => {
     try {
       const response = await fetch(`http://127.0.0.1:3000/questions/${$page.params.category_id}`, {
         method: 'GET',
@@ -37,6 +33,14 @@
       console.error(error)
       throw error
     }
+  }
+
+  onMount(async () => {
+    if (teams.length === 0) {
+      goto(`/quizzes`)
+    }
+
+    await fetchQuestions()
   })
 
   const setResult = ({ input, question, team }) => {
@@ -73,7 +77,12 @@
 </script>
 
 <section class="mx-auto w-full">
-  <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Questions" />
+  <NavBar
+    displayPreviousButton="{true}"
+    displayActionButton="{false}"
+    label="Questions"
+    previousPath="/quizzes/{quizId}/play/categories"
+  />
   <div>
     {#each questions as question}
       <div class="collapse collapse-arrow rounded-lg bg-base-200 mb-4">

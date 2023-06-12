@@ -5,6 +5,7 @@
 
   let name = ''
   $: isSubmitDisabled = name === ''
+  const quizId = $page.params.quiz_id
 
   const onSubmit = async () => {
     try {
@@ -24,7 +25,12 @@
 </script>
 
 <section class="mx-auto w-full">
-  <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Add a new category" />
+  <NavBar
+    displayPreviousButton="{true}"
+    displayActionButton="{false}"
+    label="Add a new category"
+    previousPath="/quizzes/{quizId}/categories"
+  />
   <h1 class="text-xl dark:text-white">Fill the information</h1>
   <form class="flex flex-col gap-4">
     <div class="form-control">

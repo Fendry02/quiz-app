@@ -6,11 +6,12 @@
   import { storedQuestions } from 'src/stores'
   import NavBar from 'src/components/NavBar.svelte'
 
-  let questions = []
+  const quizId = $page.params.quiz_id
 
+  let questions = []
   storedQuestions.subscribe((value) => (questions = [...value]))
 
-  onMount(async () => {
+  const fetchQuestions = async () => {
     try {
       const response = await fetch(`http://127.0.0.1:3000/questions/${$page.params.category_id}`, {
         method: 'GET',
@@ -24,6 +25,10 @@
       console.error(error)
       throw error
     }
+  }
+
+  onMount(async () => {
+    await fetchQuestions()
   })
 
   const onNewQuestionClicked = () =>
@@ -39,6 +44,7 @@
     label="Questions"
     displayPreviousButton="{true}"
     displayActionButton="{true}"
+    previousPath="/quizzes/{quizId}/categories"
     on:buttonClicked="{onNewQuestionClicked}"
   />
   <div class="overflow-x-auto">

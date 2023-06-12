@@ -72,7 +72,12 @@
 </script>
 
 <section class="mx-auto w-full">
-  <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Categories" />
+  <NavBar
+    displayPreviousButton="{true}"
+    displayActionButton="{false}"
+    label="Categories"
+    previousPath="/quizzes/${quizId}/teams"
+  />
   <div class="overflow-x-auto">
     <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
       {#each formattedResults as result}

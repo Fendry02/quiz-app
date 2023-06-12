@@ -48,7 +48,7 @@
     isSubmitDisabled = false
   }
 
-  const onSubmit = async () => {
+  const fetchTeams = async () => {
     try {
       const response = await fetch('http://127.0.0.1:3000/teams', {
         method: 'POST',
@@ -65,10 +65,14 @@
       throw error
     }
   }
+
+  const onSubmit = async () => {
+    await fetchTeams()
+  }
 </script>
 
 <section class="mx-auto w-full">
-  <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Play" />
+  <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Play" previousPath="/quizzes" />
   <h1 class="text-xl dark:text-white">Fill the information</h1>
   <form class="flex flex-col gap-4">
     <div class="form-control">

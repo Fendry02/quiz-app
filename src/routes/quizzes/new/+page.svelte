@@ -24,7 +24,7 @@
 </script>
 
 <section class="mx-auto w-full">
-  <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Add a new quiz" />
+  <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Add a new quiz" previousPath="/quizzes" />
   <h1 class="text-xl dark:text-white">Fill the information</h1>
   <form class="flex flex-col gap-4">
     <div class="form-control">

@@ -1,16 +1,18 @@
 <script>
-  // @ts-nocheck
   import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
   import { page } from '$app/stores'
 
   import NavBar from 'src/components/NavBar.svelte'
 
+  const quizId = $page.params.quiz_id
+  const categoryId = $page.params.category_id
+
   $: label = ''
   $: answer = ''
   $: information = ''
 
-  onMount(async () => {
+  const fetchQuestion = async () => {
     try {
       const response = await fetch(`http://127.0.0.1:3000/question/${$page.params.question_id}`, {
         method: 'GET',
@@ -26,6 +28,10 @@
       console.error(error)
       throw error
     }
+  }
+
+  onMount(async () => {
+    await fetchQuestion()
   })
 
   $: isSubmitDisabled = label === '' || answer === ''
@@ -50,7 +56,12 @@
 </script>
 
 <section class="mx-auto w-full">
-  <NavBar displayPreviousButton="{true}" displayActionButton="{false}" label="Edit a question" />
+  <NavBar
+    displayPreviousButton="{true}"
+    displayActionButton="{false}"
+    label="Edit a question"
+    previousPath="/quizzes/{quizId}/categories/{categoryId}/questions"
+  />
   <h1 class="text-xl dark:text-white">Fill the information</h1>
   <form class="flex flex-col gap-4">
     <div class="form-control">
