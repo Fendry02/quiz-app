@@ -10,6 +10,7 @@
   import NavBar from 'src/components/NavBar.svelte'
 
   const apiUrl = import.meta.env.VITE_BACKEND_URL
+  const quizId = $page.params.quiz_id
 
   let categories = []
   let teams = []
@@ -24,7 +25,19 @@
       team_label: correspondingTeam?.label,
     }
   })
-  const quizId = $page.params.quiz_id
+  $: sortedFormattedResults = formattedResults.sort((a, b) => (a.team_label > b.team_label ? 1 : -1))
+
+  $: formattedCategories = categories.map((category) => {
+    const isCompleted = category.questions.every((question) => {
+      const resultTeamIds = question.results.map((result) => result.team_id)
+      return teamIds.every((id) => resultTeamIds.includes(id))
+    })
+
+    return {
+      ...category,
+      isCompleted,
+    }
+  })
 
   storedCategories.subscribe((value) => (categories = [...value]))
   storedTeams.subscribe((value) => (teams = [...value]))
@@ -32,7 +45,7 @@
 
   const getCategories = async () => {
     try {
-      const response = await fetch(`${apiUrl}/categories/${$page.params.quiz_id}`, {
+      const response = await fetch(`${apiUrl}/categories/${quizId}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       })
@@ -82,7 +95,7 @@
   />
   <div class="overflow-x-auto">
     <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
-      {#each formattedResults as result}
+      {#each sortedFormattedResults as result}
         <div class="stat bg-base-200">
           <div class="stat-title">{result.team_label}</div>
           <div class="stat-value">{result.points}</div>
@@ -99,8 +112,8 @@
         </tr>
       </thead>
       <tbody>
-        {#each categories as category}
-          <tr class="hover">
+        {#each formattedCategories as category}
+          <tr class:bg-success="{category.isCompleted}">
             <td>{category.id}</td>
             <td>{category.name}</td>
             <td>

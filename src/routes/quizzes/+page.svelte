@@ -7,7 +7,7 @@
   import NavBar from 'src/components/NavBar.svelte'
 
   const apiUrl = import.meta.env.VITE_BACKEND_URL
-  
+
   let quizzes = []
   storedQuizzes.subscribe((value) => (quizzes = [...value]))
 

@@ -45,9 +45,9 @@
     await fetchQuestions()
   })
 
-  const setResult = ({ input, question, team }) => {
+  const setResult = ({ event, question, team }) => {
     const resultIndex = results.findIndex((result) => result.questionId === question.id && result.teamId === team.id)
-    const pointInNumber = Number(input.data)
+    const pointInNumber = Number(event.target.value)
     const newResult = {
       question_id: question.id,
       point: pointInNumber,
@@ -106,7 +106,7 @@
                 max="10"
                 placeholder="1"
                 class="input input-bordered max-w-xs {getDynamicInputColor(index)}"
-                on:input="{(input) => setResult({ input, question, team })}"
+                on:change="{(event) => setResult({ event, question, team })}"
               />
             {/each}
           </div>
