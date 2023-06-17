@@ -6,12 +6,14 @@
   import { storedCategories } from 'src/stores'
   import NavBar from 'src/components/NavBar.svelte'
 
+  const apiUrl = import.meta.env.VITE_BACKEND_URL
+
   let categories = []
   storedCategories.subscribe((value) => (categories = [...value]))
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/categories/${$page.params.quiz_id}`, {
+      const response = await fetch(`${apiUrl}/categories/${$page.params.quiz_id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       })

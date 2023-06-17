@@ -4,6 +4,7 @@
 
   import NavBar from 'src/components/NavBar.svelte'
 
+  const apiUrl = import.meta.env.VITE_BACKEND_URL
   const quizId = $page.params.quiz_id
   const categoryId = $page.params.category_id
 
@@ -14,7 +15,7 @@
 
   const onSubmit = async () => {
     try {
-      await fetch('http://127.0.0.1:3000/question', {
+      await fetch(`${apiUrl}/question`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

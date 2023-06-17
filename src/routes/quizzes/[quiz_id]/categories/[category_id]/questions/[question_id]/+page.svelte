@@ -5,6 +5,7 @@
 
   import NavBar from 'src/components/NavBar.svelte'
 
+  const apiUrl = import.meta.env.VITE_BACKEND_URL
   const quizId = $page.params.quiz_id
   const categoryId = $page.params.category_id
 
@@ -14,7 +15,7 @@
 
   const fetchQuestion = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/question/${$page.params.question_id}`, {
+      const response = await fetch(`${apiUrl}/question/${$page.params.question_id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +39,7 @@
 
   const onSubmit = async () => {
     try {
-      await fetch(`http://127.0.0.1:3000/question/${$page.params.question_id}`, {
+      await fetch(`${apiUrl}/question/${$page.params.question_id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

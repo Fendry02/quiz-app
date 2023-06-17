@@ -3,13 +3,15 @@
   import { page } from '$app/stores'
   import NavBar from 'src/components/NavBar.svelte'
 
+  const apiUrl = import.meta.env.VITE_BACKEND_URL
+  const quizId = $page.params.quiz_id
+
   let name = ''
   $: isSubmitDisabled = name === ''
-  const quizId = $page.params.quiz_id
 
   const onSubmit = async () => {
     try {
-      await fetch('http://127.0.0.1:3000/category', {
+      await fetch(`${apiUrl}/category`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, quiz_id: $page.params.quiz_id }),

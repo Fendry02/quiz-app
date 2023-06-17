@@ -7,6 +7,8 @@
   import NavBar from 'src/components/NavBar.svelte'
   import { storedQuestions, storedTeams } from 'src/stores'
 
+  const apiUrl = import.meta.env.VITE_BACKEND_URL
+
   let questions = []
   let teams = []
   let results = []
@@ -23,7 +25,7 @@
 
   const fetchQuestions = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/categories/${$page.params.category_id}/questions`, {
+      const response = await fetch(`${apiUrl}/categories/${$page.params.category_id}/questions`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       })
@@ -61,7 +63,7 @@
 
   const onValidTeamClicked = async () => {
     try {
-      await fetch('http://127.0.0.1:3000/results', {
+      await fetch(`${apiUrl}/results`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ results }),

@@ -7,14 +7,15 @@
   import NavBar from 'src/components/NavBar.svelte'
   import { storedTeams } from 'src/stores'
 
+  const apiUrl = import.meta.env.VITE_BACKEND_URL
+  const quizId = $page.params.quiz_id
+
   let teamCount = 2
   let listTeamMembers = ''
   let teams = [{ members: [], label: '' }]
   let areTeams = false
   let isSubmitDisabled = true
   let errorMessage = ''
-
-  const quizId = $page.params.quiz_id
 
   const splitTeams = (names, teamCount) => {
     let splitTeams = []
@@ -54,7 +55,7 @@
 
   const fetchTeams = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:3000/teams', {
+      const response = await fetch(`${apiUrl}/teams`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ teams }),

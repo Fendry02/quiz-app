@@ -3,14 +3,16 @@
 
   import NavBar from 'src/components/NavBar.svelte'
 
+  const apiUrl = import.meta.env.VITE_BACKEND_URL
+
   let name = ''
   $: isSubmitDisabled = name === ''
 
   const onSubmit = async () => {
     try {
-      await fetch('http://127.0.0.1:3000/quiz', {
+      await fetch(`${apiUrl}/quiz`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers:  { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name }),
       })
 
