@@ -12,6 +12,7 @@
   let teams = [{ members: [], label: '' }]
   let areTeams = false
   let isSubmitDisabled = true
+  let errorMessage = ''
 
   const quizId = $page.params.quiz_id
 
@@ -36,7 +37,10 @@
 
   const randomizeTeam = () => {
     const members = listTeamMembers.split(',')
-    if (members.length === 0 || members.length < teamCount) throw new Error('Invalid number of members')
+    if (members.length === 0 || members.length < teamCount) {
+      errorMessage = 'Invalid number of members'
+      return
+    }
 
     const shuffledMembers = _.shuffle(members)
     const chunkedMembers = splitTeams(shuffledMembers, teamCount)
@@ -141,5 +145,11 @@
     <button type="submit" class="btn btn-primary bg-primary" disabled="{isSubmitDisabled}" on:click="{onSubmit}">
       Launch the quiz !
     </button>
+
+    {#if errorMessage}
+      <div class="alert alert-error">
+        {errorMessage}
+      </div>
+    {/if}
   </form>
 </section>

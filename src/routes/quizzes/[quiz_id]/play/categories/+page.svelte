@@ -36,7 +36,6 @@
       })
       const jsonData = await response.json()
       storedCategories.set(jsonData)
-      console.log(jsonData)
     } catch (error) {
       console.error(error)
       throw error

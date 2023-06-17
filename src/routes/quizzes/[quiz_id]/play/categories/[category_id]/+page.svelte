@@ -23,7 +23,7 @@
 
   const fetchQuestions = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:3000/questions/${$page.params.category_id}`, {
+      const response = await fetch(`http://127.0.0.1:3000/categories/${$page.params.category_id}/questions`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       })
